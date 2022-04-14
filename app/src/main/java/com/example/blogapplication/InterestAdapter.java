@@ -18,10 +18,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InterestAdapter extends RecyclerView.Adapter<InterestAdapter.InterestViewHolder> {
-    private  String[] data;
+    private  List<InterestSataModel> data;
     private List<String> selectedNames=new ArrayList<>();
-    public  InterestAdapter(String[] data){
-        this.data=data;
+    public  InterestAdapter(List<InterestSataModel> interests){
+        this.data=interests;
 
     }
 
@@ -38,30 +38,34 @@ public class InterestAdapter extends RecyclerView.Adapter<InterestAdapter.Intere
 
     @Override
     public void onBindViewHolder(@NonNull InterestViewHolder holder, int position) {
-String title=data[position];
-holder.text.setText(title);
+        InterestSataModel interest=data.get(position);
+        holder.text.setText(interest.getTagName());
+        Log.i("onbind","onbind");
+//String title=data.get(0).getTagName();
+//holder.text.setText("hi");
 
 holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-       Toast.makeText(view.getContext(), "clicked"+"is"+title, Toast.LENGTH_LONG).show();
-      if(selectedNames.contains(title)){
-          for(int i=0;i<selectedNames.size();i++) {
-              Log.i("if condition", String.valueOf(selectedNames));
-          }
-              selectedNames.remove(title);
-
-
-       }
-      else{
-          for(int i=0;i<selectedNames.size();i++){
-              Log.i("selected", String.valueOf(selectedNames));
-          }
-          selectedNames.add(title);
-      }
-     // Toast.makeText(this,"Clicker",Toast.LENGTH_LONG).show();
-       // holder.cardView.setBackgroundColor(Color.rgb(226,11,11));
-        holder.text.setText("clicked");
+        Log.i("click","click");
+//       Toast.makeText(view.getContext(), "clicked"+"is"+title, Toast.LENGTH_LONG).show();
+//      if(selectedNames.contains(title)){
+//          for(int i=0;i<selectedNames.size();i++) {
+//              Log.i("if condition", String.valueOf(selectedNames));
+//          }
+//              selectedNames.remove(title);
+//
+//
+//       }
+//      else{
+//          for(int i=0;i<selectedNames.size();i++){
+//              Log.i("selected", String.valueOf(selectedNames));
+//          }
+//          selectedNames.add(title);
+//      }
+//     // Toast.makeText(this,"Clicker",Toast.LENGTH_LONG).show();
+//       // holder.cardView.setBackgroundColor(Color.rgb(226,11,11));
+//        holder.text.setText("clicked");
 
     }
 });
@@ -72,7 +76,7 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
 

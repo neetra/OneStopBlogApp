@@ -37,24 +37,26 @@ private EditText fname,lname,emailId,password;
                 String last = lname.toString().trim();
                 String email = emailId.getText().toString().trim();
                 String pass = password.getText().toString().trim();
-                mAuth=FirebaseAuth.getInstance();
-               // Log.i("mAuth",mAuth)
-                mAuth.createUserWithEmailAndPassword(email,pass)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //Log.i("oncomplete","oncomplete");
-                        if(task.isSuccessful()){
-
-                           // Log.d("Success", String.valueOf(task.getResult()));
-                            //Toast.makeText(getApplicationContext(), "Succesfull", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                           // Log.e("Fail", String.valueOf(task.getException()));
-                            //Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                Intent intent=new Intent(RegisterActivity.this,InterestActivity.class);
+                startActivity(intent);
+//                mAuth=FirebaseAuth.getInstance();
+//               // Log.i("mAuth",mAuth)
+//                mAuth.createUserWithEmailAndPassword(email,pass)
+//                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        //Log.i("oncomplete","oncomplete");
+//                        if(task.isSuccessful()){
+//
+//                           // Log.d("Success", String.valueOf(task.getResult()));
+//                            //Toast.makeText(getApplicationContext(), "Succesfull", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else{
+//                           // Log.e("Fail", String.valueOf(task.getException()));
+//                            //Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
 
             }

@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+    android:paddingHorizontal="50dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select your Interests"
+        android:layout_marginVertical="30dp"
+        android:textStyle="bold"
+        android:textSize="24dp"
+
+        android:textAlignment="center"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Submit"
+        android:background="@color/common_google_signin_btn_text_light_disabled"/>
+
+
+
 <androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,4 +32,9 @@
     android:id="@+id/interestList"
     tools:ignore="InvalidId">
 
+
 </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>
+
