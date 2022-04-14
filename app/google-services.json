@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "733299489391",
+    "project_id": "onestopblogs-621e6",
+    "storage_bucket": "onestopblogs-621e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733299489391:android:a8e3a3bef4f1654a25eb9a",
+        "android_client_info": {
+          "package_name": "com.example.blogapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733299489391-t167rf8nrhnl3bgj0h2tb0296f3u1ts3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4YDquZdDfjWuA667LlTJChUMXqPG4em0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733299489391-t167rf8nrhnl3bgj0h2tb0296f3u1ts3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
