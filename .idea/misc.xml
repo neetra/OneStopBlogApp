@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/drawable/gradient.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/drawable/gradient_disbled.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/activity_interest.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/activity_register.xml" value="0.12314814814814815" />

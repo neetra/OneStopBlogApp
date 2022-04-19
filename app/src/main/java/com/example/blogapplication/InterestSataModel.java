@@ -13,4 +13,5 @@ public class InterestSataModel {
     public Integer getTag_id(){
         return tag_id;
     }
+
 }

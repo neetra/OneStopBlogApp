@@ -1,21 +1,36 @@
 package com.example.blogapplication;
 
+import static com.android.volley.VolleyLog.e;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,10 +41,22 @@ public class InterestActivity extends AppCompatActivity {
     InterestAdapter adapter;
 RequestQueue requestQueue;
 RecyclerView interest;
+Button submit;
+FirebaseAuth mAuth;
+ArrayList<String> list=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interest);
+        mAuth=FirebaseAuth.getInstance();
+        Intent i=getIntent();
+        String fname=i.getStringExtra("fname");
+       // Log.i("fname-->",fname);
+        String lname=i.getStringExtra("lname");
+        String email=i.getStringExtra("emailId");
+        String pass=i.getStringExtra("password");
          interest = (RecyclerView) findViewById(R.id.interestList);
         requestQueue= Volley.newRequestQueue(this);
         interestData=new ArrayList<>();
@@ -38,12 +65,27 @@ RecyclerView interest;
         //fetchInterests();
        // interest.setLayoutManager(new GridLayoutManager(this,2));
         interest.setLayoutManager(new LinearLayoutManager(this));
+        adapter=new InterestAdapter(interestData);
     fetchInterests();
         String[] lang = {"Java", "Python", "php"};
 
 
 
         //interest.setAdapter((new InterestAdapter(lang)));
+        submit=(Button) findViewById(R.id.submitBtn);
+        submit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+             //Log.i("sizee->", String.valueOf(adapter.getSelected().size()));
+             //adapter.getSelected();
+
+
+addInterests("JKJHJKN");
+
+//createUser(fname,lname,email,pass);
+            }
+        });
 
     }
 
@@ -64,7 +106,7 @@ RecyclerView interest;
                         Log.i("data-->",tag_name);
                     }
 
-                    adapter=new InterestAdapter(interestData);
+
                     interest.setAdapter(adapter);
 
                     //adapter.notifyDataSetChanged();//To prevent app from crashing when updating
@@ -83,6 +125,180 @@ RecyclerView interest;
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+    private void createUser(String fname,String lname,String email,String pass){
+//        String userEmail=email.getText().toString().trim();
+//        Log.e("email",userEmail.toString());
+//        String userPass=password.getText().toString().trim();
+        mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Log.d("Success", String.valueOf(task.getResult().getUser()));
+                    Toast.makeText(InterestActivity.this, "Succesfull", Toast.LENGTH_SHORT).show();
+                createUser(email,fname,lname);
+                }
+                else{
+                    Log.e("Fail", String.valueOf(task.getException()));
+                    Toast.makeText(InterestActivity.this, "error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+    public void createUser(String email,String fname,String lname){
+        String url="https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/user";
+        JSONObject obj=new JSONObject();
+        try{
+
+            obj.put("EmailId",email);
+            obj.put("FName",fname);
+            obj.put("LName",lname);
+            obj.put("Type",0);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, obj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //Toast.makeText(MainActivity.this,"String Response : "+ response.toString(),Toast.LENGTH_LONG).show();
+                        try {
+                            Log.d("JSON reponse", String.valueOf(response));
+                            // loading.dismiss();
+                            //String Error = response.getString("httpStatus");
+                            String user_id=response.getString("userId");
+                            //Log.i("access_token",access_token);
+                            //if (access_token.length()>0){
+                            //Intent intent=new Intent(MainActivity.this,InterestActivity.class);
+                            //startActivity(intent);
+                            addInterests(user_id);
+
+                            // }
+//
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // loading.dismiss();
+                        }
+//                        resultTextView.setText("String Response : "+ response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //loading.dismiss();
+                Toast.makeText(getApplicationContext(), "User could not login", Toast.LENGTH_SHORT).show();
+                VolleyLog.d("Error", "Error: " + error.getMessage());
+                //Toast.makeText(Login_screen.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(jsonObjectRequest);
+
+    }
+    public void addInterests(String userId){
+        String inturl="https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/usertags?userId=78899aajs88nas";
+        JSONObject json=new JSONObject();
+        ArrayList<InterestSataModel> selectedItems=new ArrayList<>();
+        selectedItems=adapter.getSelected();
+        JSONArray array=new JSONArray();
+
+        Log.i("selected from fn-->", String.valueOf(selectedItems));
+
+       for(int i=0;i<selectedItems.size();i++){
+          // list.add(selectedItems.get(i).getTagName());
+           array.put(selectedItems.get(i).getTagName());
+
+       }
+       String [] arr={"Advertising","2016 Election"};
+       JSONArray a=new JSONArray();
+        try{
+
+            json.put("tags",array);
+
+
+        } catch (JSONException e) {
+            Log.e("exception in register", String.valueOf(e));
+        }
+
+        a.put(json);
+        Log.i("object", String.valueOf(a));
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, inturl, json,
+                new Response.Listener<JSONObject>() {
+                    @SuppressLint("LongLogTag")
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //Toast.makeText(MainActivity.this,"String Response : "+ response.toString(),Toast.LENGTH_LONG).show();
+                        try {
+                            Log.d("reponse interestsa dd", String.valueOf(response));
+                            // loading.dismiss();
+                            //String Error = response.getString("httpStatus");
+                            // String user_id=response[0];
+                            //Log.i("access_token",access_token);
+                            //if (access_token.length()>0){
+                            //Intent intent=new Intent(MainActivity.this,InterestActivity.class);
+                            //startActivity(intent);
+                            //addInterests(user_id);
+
+                            // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+
+                        } finally {
+                            Log.i("finall","Executed");
+                        }
+//                        resultTextView.setText("String Response : "+ response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //loading.dismiss();
+                Toast.makeText(getApplicationContext(), "User could not login", Toast.LENGTH_SHORT).show();
+                //e("volley error int",error.printStackTrace());
+                //Toast.makeText(Login_screen.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.i("volley error", String.valueOf(error.getMessage()));
+            }
+
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(jsonObjectRequest);
+
+
+
+
     }
 
 }

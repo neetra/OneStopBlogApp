@@ -33,11 +33,17 @@ private EditText fname,lname,emailId,password;
             @Override
             public void onClick(View view) {
                 Log.i("onclick","onclick");
-                String first = fname.toString().trim();
-                String last = lname.toString().trim();
+                String first = fname.getText().toString().trim();
+                String last = lname.getText().toString().trim();
                 String email = emailId.getText().toString().trim();
                 String pass = password.getText().toString().trim();
                 Intent intent=new Intent(RegisterActivity.this,InterestActivity.class);
+                intent.putExtra("fname",first);
+                Log.i("fname in register-->",first);
+                intent.putExtra("lname",last);
+                intent.putExtra("emailId",email);
+                intent.putExtra("password",pass);
+
                 startActivity(intent);
 //                mAuth=FirebaseAuth.getInstance();
 //               // Log.i("mAuth",mAuth)

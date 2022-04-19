@@ -10,11 +10,14 @@
     android:id="@+id/card"
     android:layout_gravity="center"
     android:layout_margin="10dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
                 android:id="@+id/interestText"
-            android:background="#E6DC9C"
+
+      android:background="@drawable/gradient_disbled"
+
             android:padding="20dp"
             android:text="Title"
             android:textColor="@color/white"
