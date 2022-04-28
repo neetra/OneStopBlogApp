@@ -1,11 +1,13 @@
 package com.example.blogapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText email,password;
+    private ProgressDialog mProgress;
 
 
     @Override
@@ -46,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //
+                // mProgress= (ProgressBar) findViewById(R.id.progressBar);
+               //
+                // mProgress.show
+//                mProgress =new ProgressDialog(MainActivity.this);
+//                mProgress.show();
+                //mProgress.
 
                 auth=FirebaseAuth.getInstance();
                 email=(EditText) findViewById(R.id.emailId);

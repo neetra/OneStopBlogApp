@@ -81,9 +81,9 @@ ArrayList<String> list=new ArrayList<>();
              //adapter.getSelected();
 
 
-addInterests("JKJHJKN");
+//addInterests("JKJHJKN");
 
-//createUser(fname,lname,email,pass);
+createUserinFirebase(fname,lname,email,pass);
             }
         });
 
@@ -126,7 +126,7 @@ addInterests("JKJHJKN");
         });
         requestQueue.add(jsonArrayRequest);
     }
-    private void createUser(String fname,String lname,String email,String pass){
+    private void createUserinFirebase(String fname,String lname,String email,String pass){
 //        String userEmail=email.getText().toString().trim();
 //        Log.e("email",userEmail.toString());
 //        String userPass=password.getText().toString().trim();
@@ -199,7 +199,7 @@ addInterests("JKJHJKN");
 
     }
     public void addInterests(String userId){
-        String inturl="https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/usertags?userId=78899aajs88nas";
+        String inturl="https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/usertags?userId="+userId;
         JSONObject json=new JSONObject();
         ArrayList<InterestSataModel> selectedItems=new ArrayList<>();
         selectedItems=adapter.getSelected();
@@ -224,7 +224,7 @@ addInterests("JKJHJKN");
         }
 
         a.put(json);
-        Log.i("object", String.valueOf(a));
+        Log.i("object", String.valueOf(json));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, inturl, json,
                 new Response.Listener<JSONObject>() {
@@ -243,7 +243,9 @@ addInterests("JKJHJKN");
                             //startActivity(intent);
                             //addInterests(user_id);
 
+
                             // }
+                            Toast.makeText(InterestActivity.this,"User resgistartion successful",Toast.LENGTH_LONG);
 
 
 
@@ -286,7 +288,7 @@ addInterests("JKJHJKN");
             @Override
             public void onErrorResponse(VolleyError error) {
                 //loading.dismiss();
-                Toast.makeText(getApplicationContext(), "User could not login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "User registartion failed", Toast.LENGTH_SHORT).show();
                 //e("volley error int",error.printStackTrace());
                 //Toast.makeText(Login_screen.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             Log.i("volley error", String.valueOf(error.getMessage()));
