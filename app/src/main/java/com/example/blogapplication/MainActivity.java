@@ -57,54 +57,57 @@ public class MainActivity extends AppCompatActivity {
 //                mProgress.show();
                 //mProgress.
 
-                auth=FirebaseAuth.getInstance();
-                email=(EditText) findViewById(R.id.emailId);
-                password=(EditText) findViewById(R.id.password);
-                String emailId=email.getText().toString().trim();
-                String pass=password.getText().toString().trim();
-                auth.signInWithEmailAndPassword(emailId
-                        , pass)
-                        .addOnCompleteListener(
-                                new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(
-                                            @NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            Log.i("suucess","success");
+//                auth=FirebaseAuth.getInstance();
+//                email=(EditText) findViewById(R.id.emailId);
+//                password=(EditText) findViewById(R.id.password);
+//                String emailId=email.getText().toString().trim();
+//                String pass=password.getText().toString().trim();
+//                auth.signInWithEmailAndPassword(emailId
+//                        , pass)
+//                        .addOnCompleteListener(
+//                                new OnCompleteListener<AuthResult>() {
+//                                    @Override
+//                                    public void onComplete(
+//                                            @NonNull Task<AuthResult> task) {
+//                                        if (task.isSuccessful()) {
+//                                            Log.i("suucess","success");
+////                                            Toast.makeText(getApplicationContext(),
+////                                                    "Login successful!!",
+////                                                    Toast.LENGTH_LONG)
+////                                                    .show();
+//                                            callLogin(emailId);
+//
+//
+//                                            // hide the progress bar
+//                                            //progressBar.setVisibility(View.GONE);
+//
+//                                            // if sign-in is successful
+//                                            // intent to home activity
+////                                            Intent intent
+////                                                    = new Intent(LoginActivity.this,
+////                                                    MainActivity.class);
+////                                            startActivity(intent);
+//                                        }
+//
+//                                        else {
+//                                            Log.e("error-->", String.valueOf(task.getException()));
+//
+//                                            // sign-in failed
 //                                            Toast.makeText(getApplicationContext(),
-//                                                    "Login successful!!",
+//                                                    "Login failed!!",
 //                                                    Toast.LENGTH_LONG)
 //                                                    .show();
-                                            callLogin(emailId);
+//                                                           Intent intent=new Intent(getApplicationContext(),RegisterActivity.class);
+//              startActivity(intent);
+//
+//                                            // hide the progress bar
+//                                            // progressbar.setVisibility(View.GONE);
+//                                        }
+//                                    }
+//                                });
+                Intent i=new Intent(MainActivity.this,HomeActivity.class);
+                startActivity(i);
 
-
-                                            // hide the progress bar
-                                            //progressBar.setVisibility(View.GONE);
-
-                                            // if sign-in is successful
-                                            // intent to home activity
-//                                            Intent intent
-//                                                    = new Intent(LoginActivity.this,
-//                                                    MainActivity.class);
-//                                            startActivity(intent);
-                                        }
-
-                                        else {
-                                            Log.e("error-->", String.valueOf(task.getException()));
-
-                                            // sign-in failed
-                                            Toast.makeText(getApplicationContext(),
-                                                    "Login failed!!",
-                                                    Toast.LENGTH_LONG)
-                                                    .show();
-                                                           Intent intent=new Intent(getApplicationContext(),RegisterActivity.class);
-              startActivity(intent);
-
-                                            // hide the progress bar
-                                            // progressbar.setVisibility(View.GONE);
-                                        }
-                                    }
-                                });
 
 
 
