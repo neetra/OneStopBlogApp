@@ -85,7 +85,8 @@ ArrayList<String> list=new ArrayList<>();
 
 //addInterests("JKJHJKN");
 
-createUserinFirebase(fname,lname,email,pass);
+            createUserinFirebase(fname,lname,email,pass);
+            Intent intent=new Intent(InterestActivity.this,HomeActivity.class);
             }
         });
 

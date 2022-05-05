@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                             String access_token=response.getString("access_token");
                             Log.i("access_token",access_token);
                             //if (access_token.length()>0){
-                                Intent intent=new Intent(MainActivity.this,InterestActivity.class);
+                                Intent intent=new Intent(MainActivity.this,HomeActivity.class);
                                 startActivity(intent);
 
                            // }
