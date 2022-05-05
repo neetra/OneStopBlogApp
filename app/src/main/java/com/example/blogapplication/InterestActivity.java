@@ -4,6 +4,7 @@ import static com.android.volley.VolleyLog.e;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,7 @@ RequestQueue requestQueue;
 RecyclerView interest;
 Button submit;
 FirebaseAuth mAuth;
+
 ArrayList<String> list=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
