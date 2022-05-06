@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.HandlerThread;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -37,9 +38,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,8 +86,8 @@ public class CreatePostActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadPost();
-                //uploadToS3();
+                //uploadPost();
+               // uploadToS3();
 
             }
         });
@@ -95,7 +103,7 @@ public class CreatePostActivity extends AppCompatActivity {
             ImageView imageView = (ImageView) findViewById(R.id.imgView);
             imageView.setImageURI(selectedImg);
             addImg.setVisibility(View.GONE);
-//             file=new File(selectedImg.getPath());
+            file=new File(selectedImg.getPath());
 //            try {
 //                bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImg);
 //            } catch (IOException e) {
@@ -109,44 +117,38 @@ public class CreatePostActivity extends AppCompatActivity {
 
 
     private void uploadToS3() {
-        String url = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId="+1;
-        ByteArrayOutputStream baos=new ByteArrayOutputStream();
-
-       bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
-       byte[] imgBytes=baos.toByteArray();
-       final String imgString= Base64.encodeToString(imgBytes,Base64.DEFAULT);
-       Log.i("imageString",imgString);
-
-
-
-
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("Success", "success");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Error","error");
-                    }
-                }
-        ){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String, String> params=new HashMap<String,String>();
-           params.put("file", imgString);
-           return params;
-            }
-            };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
-
+        String urlString = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId="+1;
+        URL url= null;
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
+        URLConnection urlConnection=null;
+        try {
+         urlConnection= url.openConnection();
+          urlConnection.setDoInput(true);
+          urlConnection.setDoOutput(true);
+          if(urlConnection instanceof HttpURLConnection){
+              ((HttpURLConnection) urlConnection).setRequestMethod("POST");
+              ((HttpURLConnection) urlConnection).connect();
+          }
+            BufferedOutputStream bos=new BufferedOutputStream(urlConnection.getOutputStream());
+            BufferedInputStream bis=new BufferedInputStream(new FileInputStream(file));
+            int i;
+            while((i=bis.read())>0){
+                bos.write(i);
+
+            }
+            bis.close();
+            bos.close();
+            Log.i("responsemsg",((HttpURLConnection) urlConnection).getResponseMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 
 
