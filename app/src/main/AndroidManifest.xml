@@ -3,7 +3,7 @@
     package="com.example.blogapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+<uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlogApplication">
+        <activity
+            android:name=".CreateBlogActivity"
+            android:exported="false"
+            android:label="@string/title_activity_create_blog"
+            android:theme="@style/Theme.BlogApplication.NoActionBar" />
+        <activity
+            android:name=".CreatePostActivity"
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"
@@ -31,5 +39,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

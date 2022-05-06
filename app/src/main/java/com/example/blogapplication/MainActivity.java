@@ -2,7 +2,9 @@ package com.example.blogapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText email,password;
     private ProgressDialog mProgress;
+    String userId;
 
 
     @Override
@@ -49,64 +53,49 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
-                // mProgress= (ProgressBar) findViewById(R.id.progressBar);
-               //
-                // mProgress.show
-//                mProgress =new ProgressDialog(MainActivity.this);
-//                mProgress.show();
-                //mProgress.
 
-//                auth=FirebaseAuth.getInstance();
-//                email=(EditText) findViewById(R.id.emailId);
-//                password=(EditText) findViewById(R.id.password);
-//                String emailId=email.getText().toString().trim();
-//                String pass=password.getText().toString().trim();
-//                auth.signInWithEmailAndPassword(emailId
-//                        , pass)
-//                        .addOnCompleteListener(
-//                                new OnCompleteListener<AuthResult>() {
-//                                    @Override
-//                                    public void onComplete(
-//                                            @NonNull Task<AuthResult> task) {
-//                                        if (task.isSuccessful()) {
-//                                            Log.i("suucess","success");
-////                                            Toast.makeText(getApplicationContext(),
-////                                                    "Login successful!!",
-////                                                    Toast.LENGTH_LONG)
-////                                                    .show();
-//                                            callLogin(emailId);
+
+                auth=FirebaseAuth.getInstance();
+                email=(EditText) findViewById(R.id.emailId);
+                password=(EditText) findViewById(R.id.password);
+                String emailId=email.getText().toString().trim();
+                String pass=password.getText().toString().trim();
+                auth.signInWithEmailAndPassword(emailId
+                        , pass)
+                        .addOnCompleteListener(
+                                new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(
+                                            @NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.i("suucess","success");
 //
+                                             userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+                                            callLogin(emailId);
+
+
 //
-//                                            // hide the progress bar
-//                                            //progressBar.setVisibility(View.GONE);
+                                        }
+
+                                        else {
+                                            Log.e("error-->", String.valueOf(task.getException()));
+
+
+                                            Toast.makeText(getApplicationContext(),
+                                                    "Login failed!!",
+                                                    Toast.LENGTH_LONG)
+                                                    .show();
+                                                           Intent intent=new Intent(getApplicationContext(),RegisterActivity.class);
+              startActivity(intent);
+
 //
-//                                            // if sign-in is successful
-//                                            // intent to home activity
-////                                            Intent intent
-////                                                    = new Intent(LoginActivity.this,
-////                                                    MainActivity.class);
-////                                            startActivity(intent);
-//                                        }
-//
-//                                        else {
-//                                            Log.e("error-->", String.valueOf(task.getException()));
-//
-//                                            // sign-in failed
-//                                            Toast.makeText(getApplicationContext(),
-//                                                    "Login failed!!",
-//                                                    Toast.LENGTH_LONG)
-//                                                    .show();
-//                                                           Intent intent=new Intent(getApplicationContext(),RegisterActivity.class);
-//              startActivity(intent);
-//
-//                                            // hide the progress bar
-//                                            // progressbar.setVisibility(View.GONE);
-//                                        }
-//                                    }
-//                                });
-                Intent i=new Intent(MainActivity.this,HomeActivity.class);
-                startActivity(i);
+                                        }
+                                    }
+                                });
+
+
 
 
 
@@ -136,7 +125,16 @@ public class MainActivity extends AppCompatActivity {
                             //String Error = response.getString("httpStatus");
                             String access_token=response.getString("access_token");
                             Log.i("access_token",access_token);
+
                             //if (access_token.length()>0){
+                          SharedPreferences sp= getSharedPreferences("userInfo",MODE_PRIVATE);
+                          SharedPreferences.Editor editor=sp.edit();
+                          editor.putString("userId",userId);
+                          editor.putString("email",email);
+                          editor.commit();
+
+
+
                                 Intent intent=new Intent(MainActivity.this,HomeActivity.class);
                                 startActivity(intent);
 

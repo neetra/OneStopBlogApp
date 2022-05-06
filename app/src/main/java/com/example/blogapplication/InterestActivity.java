@@ -86,7 +86,7 @@ ArrayList<String> list=new ArrayList<>();
 //addInterests("JKJHJKN");
 
             createUserinFirebase(fname,lname,email,pass);
-            Intent intent=new Intent(InterestActivity.this,HomeActivity.class);
+            //Intent intent=new Intent(InterestActivity.this,HomeActivity.class);
             }
         });
 
@@ -137,9 +137,13 @@ ArrayList<String> list=new ArrayList<>();
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Log.d("Success", String.valueOf(task.getResult().getUser()));
+                    String userId=mAuth.getCurrentUser().getUid();
+                    String userEmail=mAuth.getCurrentUser().getEmail();
+                    Log.i("current userId",userId);
+                    Log.i("current email",userEmail);
+                    Log.d("Success", String.valueOf(task.getResult().getAdditionalUserInfo()));
                     Toast.makeText(InterestActivity.this, "Succesfull", Toast.LENGTH_SHORT).show();
-                createUser(email,fname,lname);
+                createUser(email,fname,lname,userId);
                 }
                 else{
                     Log.e("Fail", String.valueOf(task.getException()));
@@ -149,10 +153,11 @@ ArrayList<String> list=new ArrayList<>();
         });
 
     }
-    public void createUser(String email,String fname,String lname){
+    public void createUser(String email,String fname,String lname,String userId){
         String url="https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/user";
         JSONObject obj=new JSONObject();
         try{
+            obj.put("UserId",userId);
 
             obj.put("EmailId",email);
             obj.put("FName",fname);
@@ -249,6 +254,8 @@ ArrayList<String> list=new ArrayList<>();
 
                             // }
                             Toast.makeText(InterestActivity.this,"User resgistartion successful",Toast.LENGTH_LONG);
+                            Intent i=new Intent(InterestActivity.this,MainActivity.class);
+                            startActivity(i);
 
 
 
@@ -271,16 +278,6 @@ ArrayList<String> list=new ArrayList<>();
 
 
 
-
-
-
-
-
-
-
-
-
-//
 
                         } finally {
                             Log.i("finall","Executed");

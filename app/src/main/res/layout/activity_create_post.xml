@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+   >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="Post Blog"
+            app:titleTextColor="@color/white"
+            app:popupTheme="@style/Theme.BlogApplication.PopupOverlay" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="600px"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/browser_actions_divider_color"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imgView"
+            android:background="@color/cardview_light_background"
+            android:backgroundTint="@color/browser_actions_title_color"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:id="@+id/addImage"
+            android:foregroundGravity="center"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_add_circle_24"/>
+
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_alignTop="@+id/addImage"-->
+
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:text="Click here to add the image"/>-->
+
+
+
+    </RelativeLayout>
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="50dp"
+        android:hint="Blog title..."
+        android:id="@+id/title"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_corner"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:hint="Blog Description..."
+        android:id="@+id/desc"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_corner"/>
+
+
+<!--    <EditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:minHeight="30px"-->
+<!--        android:hint="Blog Description..."/>-->
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:id="@+id/post"
+
+        android:layout_height="50dp"
+        android:layout_marginVertical="30dp"
+        app:cornerRadius="8dp"
+
+        android:text="Post"/>
+
+
+
+</LinearLayout>

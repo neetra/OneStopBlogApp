@@ -1,6 +1,9 @@
 package com.example.blogapplication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -29,6 +32,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        SharedPreferences sharedPreferences=getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String userId=sharedPreferences.getString("userId","defaultValue");
+        Log.i("shared ",userId);
         binding.navView.setOnNavigationItemSelectedListener(item ->{
             switch(item.getItemId()){
                 case R.id.navigation_home :
