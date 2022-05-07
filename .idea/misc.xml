@@ -3,6 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_create_blog.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_create_post.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_home.xml" value="0.171875" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_interest.xml" value="0.1" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/content_create_blog.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_first.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_home2.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_notifications.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_profile.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_saved.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/fragment_second.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/interest_card_layout.xml" value="0.1" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/progress_dialog.xml" value="0.14130434782608695" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1796875" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/drawable/gradient.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/drawable/gradient_disbled.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/activity_interest.xml" value="0.1" />
@@ -11,20 +31,6 @@
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/interest_card_layout.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/list_interest_layout.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/register_main.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_create_post.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_home.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_interest.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_register.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_home2.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_saved.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/progress_dialog.xml" value="0.1" />
-        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
