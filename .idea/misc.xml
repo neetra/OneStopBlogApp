@@ -31,6 +31,32 @@
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/interest_card_layout.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/list_interest_layout.xml" value="0.1" />
         <entry key="..\:/Users/Checkout/AndroidStudioProjects/BlogApplication/app/src/main/res/layout/register_main.xml" value="0.1" />
+<<<<<<< Updated upstream
+=======
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_interest.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_home2.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/fragment_saved.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/layout/progress_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/Checkout/BlogApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.23348569516782405" />
+        <entry key="app/src/main/res/layout/activity_interest.xml" value="0.31489410400390627" />
+        <entry key="app/src/main/res/layout/blog_card_layout.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.37407407407407406" />
+        <entry key="app/src/main/res/layout/fragment_home2.xml" value="0.37407407407407406" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.25981801350911454" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2819430315936053" />
+        <entry key="app/src/main/res/layout/fragment_saved.xml" value="0.37407407407407406" />
+        <entry key="app/src/main/res/layout/fragment_scrolling.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.37407407407407406" />
+        <entry key="app/src/main/res/layout/interest_card_layout.xml" value="0.37407407407407406" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.23703703703703705" />
+>>>>>>> Stashed changes
       </map>
     </option>
   </component>
