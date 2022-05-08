@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_nav_menu"
-        android:background="@color/cardview_dark_background"
+
         android:id="@+id/nav_view"
 >
 
