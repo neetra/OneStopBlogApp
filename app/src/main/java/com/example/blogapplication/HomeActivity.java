@@ -31,17 +31,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     Button btn1;
     Button btn2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getUser();
+//        DBHandler dbHandler = new DBHandler(getApplicationContext());
+//        String[] v = new String[]{"66655","title", "description", "imageLink", "thumbnailLink"};
+//        dbHandler.createTable();
+//        Log.e("homeact", "craete table");
+//        dbHandler.addBlog(v);
+//        Log.e("homeact", "craete table");
+//        List<Model> models =  dbHandler.getAllBlogs();
+
+      // Log.e("homeact", models.get(0).blogId);
+
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
