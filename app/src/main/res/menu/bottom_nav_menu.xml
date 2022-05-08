@@ -9,13 +9,15 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_baseline_save_24"
+        android:icon="@drawable/ic_baseline_star_24"
         android:title="@string/title_saved" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_profile" />
-    <item android:title="My blogs" />
+    <item
+        android:icon="@drawable/ic_baseline_sticky_note_2_24"
+        android:title="My blogs" />
 
 </menu>
