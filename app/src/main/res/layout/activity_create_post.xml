@@ -13,7 +13,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:title="Post Blog"
-            app:titleTextColor="@color/white"
             app:popupTheme="@style/Theme.BlogApplication.PopupOverlay" />
 
 

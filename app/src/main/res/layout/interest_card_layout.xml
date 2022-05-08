@@ -20,7 +20,7 @@
 
             android:padding="20dp"
             android:text="Title"
-            android:textColor="@color/white"
+
             android:textSize="24sp"
             android:textStyle="bold"
             android:textAlignment="center"
