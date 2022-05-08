@@ -12,11 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BlogApplication">
         <activity
-            android:name=".CreateBlogActivity"
-            android:exported="false"
-            android:label="@string/title_activity_create_blog"
-            android:theme="@style/Theme.BlogApplication.NoActionBar" />
-        <activity
             android:name=".CreatePostActivity"
             android:exported="false" />
         <activity
