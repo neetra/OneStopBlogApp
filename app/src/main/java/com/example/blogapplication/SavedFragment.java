@@ -81,12 +81,14 @@ public class SavedFragment extends Fragment {
                 try {
                     for (int i = 0; i < jsonArray.size(); i++) {
                         Model jsonObject = jsonArray.get(i);
+                        String blog_id = jsonObject.blogId;
                         String blog_title = jsonObject.blogTitle;
                         String blog_description = jsonObject.blogDescrition;
                         String blog_image_url = jsonObject.blogImageLink;
-                        BlogDataModel blogDataModel=new BlogDataModel(blog_title,blog_description, blog_image_url, false);
+                        String blog_thumbnail = jsonObject.blogThumbNailLink;
+                        BlogDataModel blogDataModel=new BlogDataModel(blog_id,blog_title,blog_description, blog_image_url, blog_thumbnail, false);
                         blogsData.add(blogDataModel);
-//                        Log.i("data-->",blog_title);
+                        Log.i("data-->",blog_title);
                     }
 
 

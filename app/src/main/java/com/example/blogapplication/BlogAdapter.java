@@ -18,7 +18,7 @@ import java.util.List;
 
 public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder> {
     private List<BlogDataModel> data;
-
+    DBHandler dbHandler;
     private List<String> selectedNames = new ArrayList<>();
     private BlogDataModel selected;
     List<CardView> cardList = new ArrayList<>();
@@ -40,6 +40,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull BlogViewHolder holder, int position) {
+
         BlogDataModel blog = data.get(position);
         Log.i("position", String.valueOf(position));
         String title = blog.getBlogTitle();
@@ -47,7 +48,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
             title = title.substring(0, 18) + "...";
         }
         holder.text.setText(title);
-        new RetrieveBitmapFromUrl(holder.image).execute(blog.getBlogImageUrl());
+        new RetrieveBitmapFromUrl(holder.image).execute(blog.blog_thumbnail);
         String blogHighlight = blog.getBlogDescription();
         if(blogHighlight.length() > 22) {
             blogHighlight = blogHighlight.substring(0, 22) + "...";
@@ -56,13 +57,15 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dbHandler = new DBHandler(v.getContext());
+                String[] inValues = { blog.id, blog.blog_title, blog.blog_description, blog.blog_image_url, blog.blog_thumbnail};
                 if (blog.getBlogIsSaved()) {
                     holder.saved.setImageResource(R.drawable.ic_not_saved_star);
                     blog.setBlogIsSaved(false);
                 } else {
                     holder.saved.setImageResource(R.drawable.ic_saved_star);
                     blog.setBlogIsSaved(true);
+                    dbHandler.addBlog(inValues);
                 }
             }
         });
