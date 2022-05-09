@@ -10,18 +10,18 @@ android:id="@+id/card"
 android:layout_gravity="center"
 android:layout_margin="10dp">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:id="@+id/blogText"
-    android:background="@drawable/gradient_disbled"
-    android:padding="20dp"
-    android:text="Title"
-    android:textColor="@color/colorPrimary"
-    android:textSize="24sp"
-    android:textStyle="bold"
-    android:textAlignment="center"
+    <TextView
+        android:id="@+id/blogText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightPrimary"
+        android:padding="20dp"
+        android:text="Title"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:textStyle="bold"
 
-    />
+        />
 
 </androidx.cardview.widget.CardView>

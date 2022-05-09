@@ -10,31 +10,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="208dp"
+        android:background="@color/lightPrimary"
         android:gravity="center"
-        android:background="@drawable/gradient_profile"
         android:orientation="vertical">
+
         <TextView
+            android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nameText"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:textColor="@color/cardview_light_background"
-            android:text="Person"/>
+            android:text="Person"
+            android:textColor="@color/primaryText"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="10dp"
-            android:gravity="center"
             android:background="@drawable/profile_background"
+            android:gravity="center"
             android:padding="10dp">
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:tint="@color/colorPrimary"
 
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/ic_baseline_person_24"
+
+                android:tint="@color/colorAccent"
                 tools:ignore="UseAppTint">
 
             </ImageView>
@@ -58,15 +61,16 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_baseline_person_24"/>
+
                 <TextView
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
                     android:layout_marginLeft="10dp"
-                    android:textSize="24dp"
-                    android:id="@+id/name"
+                    android:text="Name"
+                    android:textColor="#757575"
 
-                    android:textColor="#D3D3D3">
+                    android:textSize="24dp">
 
                 </TextView>
             </LinearLayout>
@@ -80,30 +84,32 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_baseline_email_24"/>
+
                 <TextView
+                    android:id="@+id/emailId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="emailId"
                     android:layout_marginLeft="10dp"
-                    android:textSize="24dp"
-                    android:id="@+id/emailId"
+                    android:text="emailId"
+                    android:textColor="@color/secondaryText"
 
-                    android:textColor="#D3D3D3">
+                    android:textSize="24dp">
 
                 </TextView>
             </LinearLayout>
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Out"
-                android:id="@+id/signout"
-                android:textAlignment="center"
-                android:paddingBottom="10dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"/>
 
 
+        </LinearLayout>
 
-    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="10dp"
+        android:text="Sign Out"
+        android:textAlignment="center" />
 </LinearLayout>
 
