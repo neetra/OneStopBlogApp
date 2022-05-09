@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mProgress=new ProgressDialog(MainActivity.this);
         Button login=(Button) findViewById(R.id.loginBtn);
         TextView createAccount= (TextView) findViewById(R.id.createAccount);
         createAccount.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mProgress.setMessage("Signing in...!");
+                mProgress.show();
+
 
 
                 auth=FirebaseAuth.getInstance();
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                           editor.putString("userId",userId);
                           editor.putString("email",email);
                           editor.commit();
+                          mProgress.dismiss();
 
 
 

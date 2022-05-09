@@ -5,17 +5,27 @@
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
+
     android:paddingHorizontal="50dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/username"
-        android:text="@string/register"
-        android:gravity="center"
+        android:text="Welcome!"
+        android:textColor="@color/cardview_dark_background"
+        android:textStyle="bold"
+       android:layout_marginTop="70dp"
+
         android:textSize="28dp"
-        android:textFontWeight="20"/>
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -99,5 +109,6 @@ android:layout_marginVertical="20dp"
         app:cornerRadius="8dp"
 
         android:text="Register"/>
+    </LinearLayout>
 
 </LinearLayout>
