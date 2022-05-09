@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Person"
-            android:textColor="@color/primaryText"
+            android:textColor="@color/cardview_light_background"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
                 android:layout_height="80dp"
                 android:src="@drawable/ic_baseline_person_24"
 
-                android:tint="@color/colorPrimary"
+                android:tint="@color/material_on_background_emphasis_high_type"
                 tools:ignore="UseAppTint">
 
             </ImageView>
