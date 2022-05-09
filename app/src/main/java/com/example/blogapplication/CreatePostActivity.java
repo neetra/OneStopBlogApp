@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,6 +44,7 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -59,7 +61,10 @@ public class CreatePostActivity extends AppCompatActivity {
     TextInputEditText title;
     TextInputEditText desc;
     File file;
+    int serverResponseCode=0;
     Bitmap bitmap;
+    ProgressDialog dialog=null;
+    String filepath;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -88,8 +93,17 @@ public class CreatePostActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog=ProgressDialog.show(CreatePostActivity.this,"","Uploading",true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        uploadToS3();
+                    }
+                }).start();
+
                 //uploadPost();
                // uploadToS3();
+
 
             }
         });
@@ -105,6 +119,7 @@ public class CreatePostActivity extends AppCompatActivity {
             ImageView imageView = (ImageView) findViewById(R.id.imgView);
             imageView.setImageURI(selectedImg);
             addImg.setVisibility(View.GONE);
+            filepath=selectedImg.getPath();
             file=new File(selectedImg.getPath());
 //            try {
 //                bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImg);
@@ -118,38 +133,90 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
 
-    private void uploadToS3() {
-        String urlString = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId="+1;
-        URL url= null;
-        try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        URLConnection urlConnection=null;
-        try {
-         urlConnection= url.openConnection();
-          urlConnection.setDoInput(true);
-          urlConnection.setDoOutput(true);
-          if(urlConnection instanceof HttpURLConnection){
-              ((HttpURLConnection) urlConnection).setRequestMethod("POST");
-              ((HttpURLConnection) urlConnection).connect();
-          }
-            BufferedOutputStream bos=new BufferedOutputStream(urlConnection.getOutputStream());
-            BufferedInputStream bis=new BufferedInputStream(new FileInputStream(file));
-            int i;
-            while((i=bis.read())>0){
-                bos.write(i);
+    private int uploadToS3() {
+        Log.i("upload s3","upload s3"+filepath);
+        String urlString = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId=" + 1;
+        String filename = filepath;
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 1 * 1024 * 1024;
+        String path = Environment.getExternalStorageDirectory().getPath();
+Log.i("environment path",path);
+
+
+        //File sourceFile = new File("/storage/emulated/0/Pictures/IMG_20220506_114704.jpg");
+        File sourceFile=new File(filepath)
+        Log.i("sourcefile",sourceFile.getPath()+":"+sourceFile.isFile()+":"+sourceFile.getPath());
+        if (!sourceFile.isFile()) {
+            Log.i("first if","first if");
+            dialog.dismiss();
+
+            return 0;
+        } else {
+            Log.i("else","else");
+            try {
+                FileInputStream fileInputStream = new FileInputStream(sourceFile);
+               Log.i("fileinputstream", String.valueOf(fileInputStream));
+                URL url = new URL(urlString);
+
+                // Open a HTTP  connection to  the URL
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true); // Allow Inputs
+                conn.setDoOutput(true); // Allow Outputs
+                conn.setUseCaches(false); // Don't use a Cached Copy
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Connection", "Keep-Alive");
+                conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                conn.setRequestProperty("file", filename);
+                dos=new DataOutputStream(conn.getOutputStream());
+                dos.writeBytes(twoHyphens+boundary+lineEnd);
+                dos.writeBytes("Content-disposition: form-data; name=\"file\";filename=\""+"filename"+"\""+lineEnd);
+                dos.writeBytes(lineEnd);
+                bytesAvailable=fileInputStream.available();
+                bufferSize=Math.min(bytesAvailable,maxBufferSize);
+                buffer=new byte[bufferSize];
+                bytesRead=fileInputStream.read(buffer,0,bufferSize);
+                while (bytesRead>0){
+                    dos.write(buffer,0,bufferSize);
+                    bytesAvailable=fileInputStream.available();
+                    bufferSize=Math.min(bytesAvailable,maxBufferSize);
+                    bytesRead=fileInputStream.read(buffer,0,bufferSize);
+                }
+                Log.i("bytes Read","bytes Read");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens+boundary+twoHyphens+lineEnd);
+                serverResponseCode=conn.getResponseCode();
+                String serverMsg=conn.getResponseMessage();
+                Log.i("code",serverMsg+":"+serverResponseCode);
+                if(serverResponseCode==200){
+                    Log.i("Succesful uploading","success upload");
+                }
+                fileInputStream.close();
+                dos.flush();
+                dos.close();
+
 
             }
-            bis.close();
-            bos.close();
-            Log.i("responsemsg",((HttpURLConnection) urlConnection).getResponseMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
+            catch (MalformedURLException ex){
+                dialog.dismiss();
+                Log.i("malformed","exception");
+            }
+            catch (Exception e) {
+                dialog.dismiss();
+                Log.i("Exception---->", String.valueOf(e));
+            }
+            dialog.dismiss();
+            return serverResponseCode;
+
+
         }
-
-
+       // return 0;
     }
 
 
