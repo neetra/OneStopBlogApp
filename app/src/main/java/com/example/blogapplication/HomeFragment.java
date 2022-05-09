@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         blog = (RecyclerView) getView().findViewById(R.id.blogsList);
         blog.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter=new BlogAdapter(blogsData);
+        adapter=new BlogAdapter(blogsData, getContext());
         fetchBlogs();
     }
 
