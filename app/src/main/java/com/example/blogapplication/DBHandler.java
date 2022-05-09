@@ -50,7 +50,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Log.e("CreatNewTable", "Creating table" + TABLE_ONESTOP);
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_ONESTOP + " ("
-                + ID_COL + " TEXT, "
+                + ID_COL + " TEXT PRIMARY KEY, "
                 + TITLE + " TEXT,"
                 + DESCRIPTION + " TEXT,"
                 + IMAGELINK + " TEXT,"
