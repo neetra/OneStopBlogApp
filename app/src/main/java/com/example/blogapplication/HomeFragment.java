@@ -83,7 +83,8 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String blog_title = jsonObject.getString("blog_title");
                         String blog_description = jsonObject.getString("blog_description");
-                        BlogDataModel blogDataModel=new BlogDataModel(blog_title,blog_description);
+                        String blog_image_url = jsonObject.getString("Thumbnail");
+                        BlogDataModel blogDataModel=new BlogDataModel(blog_title,blog_description, blog_image_url, false);
                         blogsData.add(blogDataModel);
 //                        Log.i("data-->",blog_title);
                     }

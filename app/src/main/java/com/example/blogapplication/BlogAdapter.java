@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,10 +42,31 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     public void onBindViewHolder(@NonNull BlogViewHolder holder, int position) {
         BlogDataModel blog = data.get(position);
         Log.i("position", String.valueOf(position));
-        holder.text.setText(blog.getBlogTitle());
-        Log.i("onbind", "onbind");
         String title = blog.getBlogTitle();
-        String description = blog.getBlogDescription();
+        if(title.length() > 18) {
+            title = title.substring(0, 18) + "...";
+        }
+        holder.text.setText(title);
+        new RetrieveBitmapFromUrl(holder.image).execute(blog.getBlogImageUrl());
+        String blogHighlight = blog.getBlogDescription();
+        if(blogHighlight.length() > 22) {
+            blogHighlight = blogHighlight.substring(0, 22) + "...";
+        }
+        holder.description.setText(blogHighlight);
+        holder.saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (blog.getBlogIsSaved()) {
+                    holder.saved.setImageResource(R.drawable.ic_not_saved_star);
+                    blog.setBlogIsSaved(false);
+                } else {
+                    holder.saved.setImageResource(R.drawable.ic_saved_star);
+                    blog.setBlogIsSaved(true);
+                }
+            }
+        });
+//        Log.i("onbind", "onbind");
 //holder.text.setText("hi");
 
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +109,17 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     public class BlogViewHolder extends RecyclerView.ViewHolder {
         TextView text;
         CardView cardView;
-
+        ImageView image;
+        TextView description;
+        ImageView saved;
 
         public BlogViewHolder(@NonNull View itemView) {
             super(itemView);
             text = itemView.findViewById(R.id.blogText);
             cardView = itemView.findViewById(R.id.card);
-
+            image = itemView.findViewById(R.id.blogImage);
+            description = itemView.findViewById(R.id.blogDescription);
+            saved = itemView.findViewById(R.id.saved);
         }
     }
 }
