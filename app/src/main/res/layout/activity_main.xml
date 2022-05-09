@@ -5,7 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
-    android:paddingHorizontal="50dp">
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="50dp"
+        android:orientation="vertical">
+
+
 
     <TextView
         android:layout_width="match_parent"
@@ -60,5 +67,29 @@
         app:cornerRadius="8dp"
 
         android:text="@string/login"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+
+            android:text="Don't have an account?"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/createAccount"
+            android:textSize="18dp"
+            android:layout_marginLeft="7dp"
+            android:text="Create Account"
+            android:textColor="@color/colorPrimary"
+            android:clickable="true"/>
+
+    </LinearLayout>
 
 </LinearLayout>

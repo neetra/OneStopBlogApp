@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button login=(Button) findViewById(R.id.loginBtn);
+        TextView createAccount= (TextView) findViewById(R.id.createAccount);
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(MainActivity.this,RegisterActivity.class);
+                startActivity(i);
+
+            }
+        });
 
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 password=(EditText) findViewById(R.id.password);
                 String emailId=email.getText().toString().trim();
                 String pass=password.getText().toString().trim();
+
+
                 auth.signInWithEmailAndPassword(emailId
                         , pass)
                         .addOnCompleteListener(
