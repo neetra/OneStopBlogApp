@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
                         String blog_id = jsonObject.getString("Blog_id");
                         String blog_title = jsonObject.getString("blog_title");
                         String blog_description = jsonObject.getString("blog_description");
-                        String blog_image_url = jsonObject.getString("Thumbnail");
+                        String blog_image_url = jsonObject.getString("image_link");
                         String blog_thumbnail = jsonObject.getString("Thumbnail");
                         BlogDataModel blogDataModel=new BlogDataModel(blog_id,blog_title,blog_description, blog_image_url, blog_thumbnail, false);
                         blogsData.add(blogDataModel);
