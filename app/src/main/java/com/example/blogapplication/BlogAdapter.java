@@ -1,6 +1,9 @@
 package com.example.blogapplication;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,11 +27,11 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     private BlogDataModel selected;
     List<CardView> cardList = new ArrayList<>();
     private int row_idx = 0;
+    private Context context;
 
-
-    public BlogAdapter(List<BlogDataModel> blogs) {
+    public BlogAdapter(List<BlogDataModel> blogs, Context context) {
         this.data = blogs;
-
+        this.context = context;
     }
 
     @NonNull
@@ -69,35 +73,21 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
                 }
             }
         });
-//        Log.i("onbind", "onbind");
-//holder.text.setText("hi");
 
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//
-//            @Override
-//            public void onClick(View view) {
-//                row_idx=position;
-//                boolean flag = true;
-//                for (int i = 0; i < selected.size(); i++) {
-//                    // Log.i("Selected items"+selected.get(i).getTagName());
-//                    Log.i("Selected items", selected.get(i).getTagName());
-//                    if (selected.get(i).getTagName() == title) {
-//                        selected.remove(i);
-//                        flag = false;
-//                    }
-//                }
-//                if (flag == false) {
-//                    holder.text.setBackgroundResource(R.drawable.gradient_disbled);
-//                } else {
-//                    if (row_idx == position) {
-//                        selected.add(new InterestSataModel(tag, title));
-//                        holder.text.setBackgroundResource(R.drawable.gradient);
-//
-//                    }
-//                }
-//            }
-//        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(view.getContext(), DetailActivity.class);
+                Bundle args = new Bundle();
+                args.putString("BLOG_TITLE", blog.blog_title);
+                args.putString("BLOG_DESCRIPTION", blog.blog_description);
+                args.putString("BLOG_IMAGE_LINK", blog.blog_image_url);
+                i.putExtras(args);
+                context.startActivity(i, args);
+            }
+        });
     }
 
     @Override
