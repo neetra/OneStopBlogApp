@@ -7,13 +7,7 @@
     android:orientation="vertical"
    >
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="Post Blog"
-            app:popupTheme="@style/Theme.BlogApplication.PopupOverlay" />
+<include layout="@layout/toolbar" android:id="@+id/toolbar"/>
 
 
     <RelativeLayout

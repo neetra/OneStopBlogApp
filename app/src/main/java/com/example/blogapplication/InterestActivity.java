@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.blogapplication.databinding.ProgressDialogBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -44,6 +46,7 @@ RequestQueue requestQueue;
 RecyclerView interest;
 Button submit;
 FirebaseAuth mAuth;
+ProgressDialog mProgress;
 
 ArrayList<String> list=new ArrayList<>();
     @Override
@@ -53,6 +56,7 @@ ArrayList<String> list=new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interest);
         mAuth=FirebaseAuth.getInstance();
+        mProgress=new ProgressDialog(InterestActivity.this);
         Intent i=getIntent();
         String fname=i.getStringExtra("fname");
        // Log.i("fname-->",fname);
@@ -79,6 +83,8 @@ ArrayList<String> list=new ArrayList<>();
 
             @Override
             public void onClick(View view) {
+                mProgress.show();
+                mProgress.setMessage("Signing up...");
              //Log.i("sizee->", String.valueOf(adapter.getSelected().size()));
              //adapter.getSelected();
 
@@ -295,6 +301,7 @@ ArrayList<String> list=new ArrayList<>();
             }
 
         });
+        mProgress.dismiss();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(jsonObjectRequest);
 

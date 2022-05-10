@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost;
 
@@ -65,6 +67,7 @@ public class CreatePostActivity extends AppCompatActivity {
     Bitmap bitmap;
     ProgressDialog dialog=null;
     String filepath;
+    MaterialToolbar toolbar;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -73,6 +76,11 @@ public class CreatePostActivity extends AppCompatActivity {
 //      ActionBar actionBar=getSupportActionBar();
 //        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_create_post);
+        toolbar=(MaterialToolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Post");
+        toolbar.setTitleTextColor(Color.WHITE);
+
+    setSupportActionBar(toolbar);
         post = (Button) findViewById(R.id.post);
         title=(TextInputEditText) findViewById(R.id.title);
         desc=(TextInputEditText) findViewById(R.id.desc);
