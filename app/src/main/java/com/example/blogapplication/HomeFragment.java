@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
     RecyclerView blog;
     BlogAdapter adapter;
     RequestQueue requestQueue;
+    MaterialToolbar toolbar;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -50,7 +52,13 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_home2, container, false);
         requestQueue= Volley.newRequestQueue(getContext());
-
+        toolbar=(MaterialToolbar) view.findViewById(R.id.allblogstoolbar);
+//      AppCompatActivity appCompatActivity= (AppCompatActivity) getActivity();
+//
+//
+//     appCompatActivity.setSupportActionBar(toolbar);
+//    appCompatActivity.getSupportActionBar().setTitle("My Saved Blogs");
+        toolbar.setTitle("All Blogs");
         add= (ImageButton) view.findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
                                    @Override
