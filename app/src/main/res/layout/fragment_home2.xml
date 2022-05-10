@@ -6,31 +6,27 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".HomeFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="142dp"
-        android:layout_height="32dp"
-        android:text="Trending blogs"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/allblogstoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@android:color/white" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/blogsList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="384dp"
+        android:layout_height="620dp"
         android:layout_gravity="center_vertical"
         android:text="@string/hello_blank_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/allblogstoolbar"
+        app:layout_constraintVertical_bias="0.378"
         tools:ignore="InvalidId,UnknownId">
 
     </androidx.recyclerview.widget.RecyclerView>

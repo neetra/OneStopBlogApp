@@ -1,9 +1,11 @@
 package com.example.blogapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,9 +37,12 @@ public class SavedFragment extends Fragment {
     ImageButton add;
     List<BlogDataModel> blogsData = new ArrayList<BlogDataModel>();;
     RecyclerView blog;
-    BlogAdapter adapter;
+    BlogAdapterSave adapter;
     RequestQueue requestQueue;
     DBHandler dbHandler;
+    MaterialToolbar toolbar;
+
+    private String LOG_TAG = "SAVEFRAGMENT" ;
     public SavedFragment() {
         // Required empty public constructor
     }
@@ -51,6 +57,18 @@ public class SavedFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_home2, container, false);
         requestQueue= Volley.newRequestQueue(getContext());
+
+
+//      Log.i(LOG_TAG, "toolbar");
+     toolbar=(MaterialToolbar) view.findViewById(R.id.allblogstoolbar);
+//      AppCompatActivity appCompatActivity= (AppCompatActivity) getActivity();
+//
+//
+//     appCompatActivity.setSupportActionBar(toolbar);
+//    appCompatActivity.getSupportActionBar().setTitle("My Saved Blogs");
+        toolbar.setTitle("My Saved Blogs");
+//
+//        Log.i(LOG_TAG, "toolbar");
 
         add= (ImageButton) view.findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +87,7 @@ public class SavedFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         blog = (RecyclerView) getView().findViewById(R.id.blogsList);
         blog.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter=new BlogAdapter(blogsData, getContext());
+        adapter=new BlogAdapterSave(blogsData, getContext());
         fetchBlogs();
     }
 
