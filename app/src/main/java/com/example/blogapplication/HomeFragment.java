@@ -82,6 +82,9 @@ public class HomeFragment extends Fragment {
 
     private void fetchBlogs() {
         String url = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/blogs";
+        DBHandler dbHandler = new DBHandler(getContext());
+        List<Model> allBlogs = dbHandler.getAllBlogs();
+        Log.e("Homefragement", "fetch blogs");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -94,7 +97,13 @@ public class HomeFragment extends Fragment {
                         String blog_description = jsonObject.getString("blog_description");
                         String blog_image_url = jsonObject.getString("image_link");
                         String blog_thumbnail = jsonObject.getString("Thumbnail");
-                        BlogDataModel blogDataModel=new BlogDataModel(blog_id,blog_title,blog_description, blog_image_url, blog_thumbnail, false);
+                        boolean isSaved = false;
+                        Log.e("Homefragement","blog id" + blog_id );
+                        Log.e("Homefragement", String.valueOf(allBlogs.size()));
+
+                        isSaved= allBlogs.stream().anyMatch(n -> n.blogId.equalsIgnoreCase(blog_id));
+                        Log.e("Homefragement", String.valueOf((isSaved) + blog_id));
+                        BlogDataModel blogDataModel=new BlogDataModel(blog_id,blog_title,blog_description, blog_image_url, blog_thumbnail, isSaved);
                         blogsData.add(blogDataModel);
 //                        Log.i("data-->",blog_title);
                     }

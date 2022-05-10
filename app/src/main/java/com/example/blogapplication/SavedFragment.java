@@ -93,7 +93,6 @@ public class SavedFragment extends Fragment {
 
     private void fetchBlogs() {
         dbHandler = new DBHandler(getContext());
-        String url = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/blogs";
 
                 List<Model> jsonArray = dbHandler.getAllBlogs();
                 try {
@@ -104,7 +103,7 @@ public class SavedFragment extends Fragment {
                         String blog_description = jsonObject.blogDescrition;
                         String blog_image_url = jsonObject.blogImageLink;
                         String blog_thumbnail = jsonObject.blogThumbNailLink;
-                        BlogDataModel blogDataModel=new BlogDataModel(blog_id,blog_title,blog_description, blog_image_url, blog_thumbnail, false);
+                        BlogDataModel blogDataModel=new BlogDataModel(blog_id,blog_title,blog_description, blog_image_url, blog_thumbnail, true);
                         blogsData.add(blogDataModel);
                         Log.i("data-->",blog_title);
                     }

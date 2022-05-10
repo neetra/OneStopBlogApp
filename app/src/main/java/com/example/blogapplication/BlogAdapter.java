@@ -58,6 +58,12 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
             blogHighlight = blogHighlight.substring(0, 22) + "...";
         }
         holder.description.setText(blogHighlight);
+        if(blog.blog_is_saved){
+            holder.saved.setImageResource(R.drawable.ic_saved_star);
+        }
+        else{
+            holder.saved.setImageResource(R.drawable.ic_not_saved_star);
+        }
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,12 +71,15 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
                 String[] inValues = { blog.id, blog.blog_title, blog.blog_description, blog.blog_image_url, blog.blog_thumbnail};
                 if (blog.getBlogIsSaved()) {
                     holder.saved.setImageResource(R.drawable.ic_not_saved_star);
+                    dbHandler.deleteBlog(blog.id);
                     blog.setBlogIsSaved(false);
+
                 } else {
                     holder.saved.setImageResource(R.drawable.ic_saved_star);
                     blog.setBlogIsSaved(true);
                     dbHandler.addBlog(inValues);
                 }
+                notifyDataSetChanged();
             }
         });
 

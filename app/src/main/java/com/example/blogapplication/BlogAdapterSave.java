@@ -58,18 +58,28 @@ public class BlogAdapterSave extends RecyclerView.Adapter<BlogAdapterSave.BlogVi
             blogHighlight = blogHighlight.substring(0, 22) + "...";
         }
         holder.description.setText(blogHighlight);
+        if(blog.blog_is_saved){
+            holder.saved.setImageResource(R.drawable.ic_saved_star);
+        }
+    else{
+            holder.saved.setImageResource(R.drawable.ic_not_saved_star);
+        }
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dbHandler = new DBHandler(v.getContext());
                 String[] inValues = { blog.id, blog.blog_title, blog.blog_description, blog.blog_image_url, blog.blog_thumbnail};
+                Log.e("BLOGSAVEADAPTER", String.valueOf(blog.blog_is_saved));
                 if (blog.getBlogIsSaved()) {
+                    holder.saved.setImageResource(R.drawable.ic_not_saved_star);
+                    dbHandler.deleteBlog(blog.id);
+                    blog.setBlogIsSaved(false);
+                    data.remove(position);
+                    notifyItemRemoved(position);
+                } else {
                     holder.saved.setImageResource(R.drawable.ic_saved_star);
                     blog.setBlogIsSaved(true);
-                } else {
-                    holder.saved.setImageResource(R.drawable.ic_not_saved_star);
-                    blog.setBlogIsSaved(false);
-                    dbHandler.deleteBlog(blog.id);
+
                 }
             }
         });
@@ -88,6 +98,7 @@ public class BlogAdapterSave extends RecyclerView.Adapter<BlogAdapterSave.BlogVi
                 context.startActivity(i, args);
             }
         });
+
     }
 
     @Override

@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/drawable-anydpi/ic_not_saved_star.xml" value="0.2255" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/drawable-anydpi/ic_saved_star.xml" value="0.2255" />
         <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.135" />
+        <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.2255" />
         <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_create_blog.xml" value="0.14130434782608695" />
         <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_create_post.xml" value="0.14130434782608695" />
         <entry key="..\:/NetraMasters/277/BlogApp/app/src/main/res/layout/activity_detail.xml" value="0.13229166666666667" />
