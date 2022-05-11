@@ -1,6 +1,8 @@
 package com.example.blogapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.android.volley.Request;
@@ -29,8 +30,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link MyBlogsFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class MyBlogsFragment extends Fragment {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     View view;
     ImageButton add;
     List<BlogDataModel> blogsData = new ArrayList<BlogDataModel>();;
@@ -38,26 +46,43 @@ public class HomeFragment extends Fragment {
     BlogAdapter adapter;
     RequestQueue requestQueue;
     MaterialToolbar toolbar;
-    public HomeFragment() {
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public MyBlogsFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment MyBlogsFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static MyBlogsFragment newInstance(String param1, String param2) {
+        MyBlogsFragment fragment = new MyBlogsFragment();
 
+        return fragment;
+    }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_home2, container, false);
+        view= inflater.inflate(R.layout.fragment_my_blogs, container, false);
         requestQueue= Volley.newRequestQueue(getContext());
-        toolbar=(MaterialToolbar) view.findViewById(R.id.allblogstoolbar);
-//      AppCompatActivity appCompatActivity= (AppCompatActivity) getActivity();
-//
-//
-//     appCompatActivity.setSupportActionBar(toolbar);
-//    appCompatActivity.getSupportActionBar().setTitle("My Saved Blogs");
+        toolbar=(MaterialToolbar) view.findViewById(R.id.myblogstoolbar);
         toolbar.setTitle("All Blogs");
         add= (ImageButton) view.findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +97,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         blog = (RecyclerView) getView().findViewById(R.id.blogsList);
         blog.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,10 +105,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchBlogs() {
-        String url = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/blogs";
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId","defaultValue");
+        String url = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/blogs?userId=" + userId;
         DBHandler dbHandler = new DBHandler(getContext());
         List<Model> allBlogs = dbHandler.getAllBlogs();
-        Log.e("Homefragement", "fetch blogs");
+        Log.e("MyBlogsfragement", "fetch blogs");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

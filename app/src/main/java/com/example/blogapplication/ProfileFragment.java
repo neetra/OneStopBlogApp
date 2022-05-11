@@ -40,11 +40,15 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_profile, container, false);
+
+        //Set toolbar
          toolbar=(MaterialToolbar) view.findViewById(R.id.toolbar);
      AppCompatActivity appCompatActivity= (AppCompatActivity) getActivity();
      toolbar.setTitleTextColor(Color.WHITE);
      appCompatActivity.setSupportActionBar(toolbar);
      appCompatActivity.getSupportActionBar().setTitle("My Profile");
+
+
      //appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

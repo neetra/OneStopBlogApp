@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/system_neutral1_50"
+        android:background="@color/lightPrimary"
         tools:targetApi="s">
 
         <TextView
@@ -25,14 +25,14 @@
             android:text="Title"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.989"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/blogImage"
@@ -51,14 +51,14 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Description"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.823"
+            app:layout_constraintHorizontal_bias="0.943"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.662" />
+            app:layout_constraintVertical_bias="0.786" />
 
         <ImageView
             android:id="@+id/saved"

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder> {
+public class BlogAdapterSave extends RecyclerView.Adapter<BlogAdapterSave.BlogViewHolder> {
     private List<BlogDataModel> data;
     DBHandler dbHandler;
     private List<String> selectedNames = new ArrayList<>();
@@ -29,7 +29,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     private int row_idx = 0;
     private Context context;
 
-    public BlogAdapter(List<BlogDataModel> blogs, Context context) {
+    public BlogAdapterSave(List<BlogDataModel> blogs, Context context) {
         this.data = blogs;
         this.context = context;
     }
@@ -39,7 +39,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     public BlogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.blog_card_layout, parent, false);
-        return new BlogAdapter.BlogViewHolder(view);
+        return new BlogAdapterSave.BlogViewHolder(view);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         if(blog.blog_is_saved){
             holder.saved.setImageResource(R.drawable.ic_saved_star);
         }
-        else{
+    else{
             holder.saved.setImageResource(R.drawable.ic_not_saved_star);
         }
         holder.saved.setOnClickListener(new View.OnClickListener() {
@@ -69,17 +69,18 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
             public void onClick(View v) {
                 dbHandler = new DBHandler(v.getContext());
                 String[] inValues = { blog.id, blog.blog_title, blog.blog_description, blog.blog_image_url, blog.blog_thumbnail};
+                Log.e("BLOGSAVEADAPTER", String.valueOf(blog.blog_is_saved));
                 if (blog.getBlogIsSaved()) {
                     holder.saved.setImageResource(R.drawable.ic_not_saved_star);
                     dbHandler.deleteBlog(blog.id);
                     blog.setBlogIsSaved(false);
-
+                    data.remove(position);
+                    notifyItemRemoved(position);
                 } else {
                     holder.saved.setImageResource(R.drawable.ic_saved_star);
                     blog.setBlogIsSaved(true);
-                    dbHandler.addBlog(inValues);
+
                 }
-                notifyDataSetChanged();
             }
         });
 
@@ -97,6 +98,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
                 context.startActivity(i, args);
             }
         });
+
     }
 
     @Override

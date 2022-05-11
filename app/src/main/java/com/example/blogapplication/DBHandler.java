@@ -131,6 +131,33 @@ public class DBHandler extends SQLiteOpenHelper {
         Log.e("CreatNewTable", "add blog table" + TABLE_ONESTOP);
     }
 
+
+    public void deleteBlog(String blogId) {
+
+        // on below line we are creating a variable for
+        // our sqlite database and calling writable method
+        // as we are writing data in our database.
+        Log.e("CreatNewTable", "delete blog table" + TABLE_ONESTOP);
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // on below line we are creating a
+        // variable for content values.
+
+
+        // on below line we are passing all values
+        // along with its key and value pair.
+
+
+        // content values to our table.
+        db.delete(TABLE_ONESTOP, "id=?", new String[]{blogId});
+
+        // at last we are closing our
+        // database after adding database.
+        db.close();
+        Log.e("CreatNewTable", "add blog table" + TABLE_ONESTOP);
+    }
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // this method is called to check if the table exists already.
