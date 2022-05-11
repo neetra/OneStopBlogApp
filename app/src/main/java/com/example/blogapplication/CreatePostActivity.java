@@ -174,11 +174,11 @@ public class CreatePostActivity extends AppCompatActivity {
         int maxBufferSize = 1 * 1024 * 1024;
         String path = Environment.getExternalStorageDirectory().getPath();
 Log.i("environment path",path);
-filepath=path+filepath;
+//filepath=path+filepath;
 
 
-        File sourceFile = new File("/storage/emulated/0/Pictures/IMG_20220506_114704.jpg");
-       // File sourceFile=new File(filepath);
+       // File sourceFile = new File("/storage/emulated/0/Pictures/IMG_20220506_114704.jpg");
+        File sourceFile=new File(filepath);
         Log.i("sourcefile",sourceFile.getPath()+":"+sourceFile.isFile()+":"+sourceFile.getName());
         if (!sourceFile.isFile()) {
             Log.i("first if","first if");
