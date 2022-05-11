@@ -21,6 +21,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -45,11 +46,13 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -60,14 +63,17 @@ import java.util.Map;
 public class CreatePostActivity extends AppCompatActivity {
     Button post;
     ImageButton addImg;
-    TextInputEditText title;
-    TextInputEditText desc;
+    EditText title;
+    EditText desc;
     File file;
     int serverResponseCode=0;
     Bitmap bitmap;
     ProgressDialog dialog=null;
     String filepath;
     MaterialToolbar toolbar;
+    String imgLink;
+    String blogTitle;
+    String blogDesc;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -82,14 +88,15 @@ public class CreatePostActivity extends AppCompatActivity {
 
     setSupportActionBar(toolbar);
         post = (Button) findViewById(R.id.post);
-        title=(TextInputEditText) findViewById(R.id.title);
-        desc=(TextInputEditText) findViewById(R.id.desc);
+
+
         addImg = (ImageButton) findViewById(R.id.addImage);
         addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-               Log.i("intent", String.valueOf(i));
+               //Log.i("intent", String.valueOf(i));
                  startActivityForResult(i, 3);
 //                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //                if(intent.resolveActivity(getPackageManager())!=null){
@@ -109,6 +116,7 @@ public class CreatePostActivity extends AppCompatActivity {
                     }
                 }).start();
 
+
                 //uploadPost();
                // uploadToS3();
 
@@ -123,11 +131,13 @@ public class CreatePostActivity extends AppCompatActivity {
         Log.i("resultcode", String.valueOf(resultCode));
         if (resultCode == RESULT_OK && data != null) {
             Uri selectedImg = data.getData();
+            String uri=getRealPath(selectedImg);
             Log.i("selected", String.valueOf(selectedImg));
             ImageView imageView = (ImageView) findViewById(R.id.imgView);
             imageView.setImageURI(selectedImg);
             addImg.setVisibility(View.GONE);
-            filepath=selectedImg.getPath();
+            filepath=uri;
+
             file=new File(selectedImg.getPath());
 //            try {
 //                bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImg);
@@ -139,11 +149,20 @@ public class CreatePostActivity extends AppCompatActivity {
 
         }
     }
+    private String getRealPath(Uri uri){
+        Cursor cursor= getContentResolver().query(uri,null,null,null,null);
+        cursor.moveToFirst();
+        int idx=cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        Log.i("uri from real",cursor.getString(idx));
+        return cursor.getString(idx);
+    }
 
 
     private int uploadToS3() {
+        SharedPreferences sharedPreferences=getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String userId=sharedPreferences.getString("userId","defaultValue");
         Log.i("upload s3","upload s3"+filepath);
-        String urlString = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId=" + 1;
+        String urlString = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId=" + userId;
         String filename = filepath;
         HttpURLConnection conn = null;
         DataOutputStream dos = null;
@@ -155,11 +174,12 @@ public class CreatePostActivity extends AppCompatActivity {
         int maxBufferSize = 1 * 1024 * 1024;
         String path = Environment.getExternalStorageDirectory().getPath();
 Log.i("environment path",path);
+//filepath=path+filepath;
 
 
-        //File sourceFile = new File("/storage/emulated/0/Pictures/IMG_20220506_114704.jpg");
+       // File sourceFile = new File("/storage/emulated/0/Pictures/IMG_20220506_114704.jpg");
         File sourceFile=new File(filepath);
-        Log.i("sourcefile",sourceFile.getPath()+":"+sourceFile.isFile()+":"+sourceFile.getPath());
+        Log.i("sourcefile",sourceFile.getPath()+":"+sourceFile.isFile()+":"+sourceFile.getName());
         if (!sourceFile.isFile()) {
             Log.i("first if","first if");
             dialog.dismiss();
@@ -167,6 +187,7 @@ Log.i("environment path",path);
             return 0;
         } else {
             Log.i("else","else");
+            String name=sourceFile.getName();
             try {
                 FileInputStream fileInputStream = new FileInputStream(sourceFile);
                Log.i("fileinputstream", String.valueOf(fileInputStream));
@@ -183,8 +204,9 @@ Log.i("environment path",path);
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
                 conn.setRequestProperty("file", filename);
                 dos=new DataOutputStream(conn.getOutputStream());
+
                 dos.writeBytes(twoHyphens+boundary+lineEnd);
-                dos.writeBytes("Content-disposition: form-data; name=\"file\";filename=\""+"filename"+"\""+lineEnd);
+                dos.writeBytes("Content-disposition: form-data; name=\"file\";filename=\""+name+"\""+lineEnd);
                 dos.writeBytes(lineEnd);
                 bytesAvailable=fileInputStream.available();
                 bufferSize=Math.min(bytesAvailable,maxBufferSize);
@@ -199,11 +221,27 @@ Log.i("environment path",path);
                 Log.i("bytes Read","bytes Read");
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens+boundary+twoHyphens+lineEnd);
+
+                if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
+                    BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        String line;
+                    while((line= bufferedReader.readLine())!=null){
+                        Log.i("bufferreader",line+"hi");
+                        JSONObject jsonObject=new JSONObject(line);
+                        imgLink= (String) jsonObject.get("imageLink");
+                    }
+                    Log.i("imgLink",imgLink);
+
+
+                }
                 serverResponseCode=conn.getResponseCode();
+
+               // serverRes=conn.getRes
                 String serverMsg=conn.getResponseMessage();
                 Log.i("code",serverMsg+":"+serverResponseCode);
                 if(serverResponseCode==200){
                     Log.i("Succesful uploading","success upload");
+                    uploadPost(imgLink);
                 }
                 fileInputStream.close();
                 dos.flush();
@@ -230,17 +268,23 @@ Log.i("environment path",path);
 
 
 
-    private void uploadPost() {
+    private void uploadPost(String imgLink) {
+        title=(EditText) findViewById(R.id.title);
+        blogTitle=title.getText().toString();
+
+
+        desc=(EditText) findViewById(R.id.desc);
+        blogDesc=desc.getText().toString().trim();
         SharedPreferences sharedPreferences=getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String userId=sharedPreferences.getString("userId","defaultValue");
-        Log.i("shared ",userId);
+        Log.i("shared ",userId+blogTitle+blogDesc);
         String url = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/blog?userId="+userId;
         JSONObject obj = new JSONObject();
         try {
-            obj.put("BlogTitle",title );
-            obj.put("BlogDescription", desc);
-            obj.put("ImageLink","https://one-stop-blogs.s3.us-east-2.amazonaws.com/fZnLfUn9UiuNq3iuPjqnw8_Capture.PNG");
-            obj.put("ThumbnailLink","https://one-stop-blogs.s3.us-east-2.amazonaws.com/fZnLfUn9UiuNq3iuPjqnw8_Capture.PNG");
+            obj.put("BlogTitle",blogTitle );
+            obj.put("BlogDescription", blogDesc);
+            obj.put("ImageLink",imgLink);
+            obj.put("ThumbnailLink",imgLink);
 
 
 
@@ -274,7 +318,7 @@ Log.i("environment path",path);
             public void onErrorResponse(VolleyError error) {
                 //loading.dismiss();
                 Toast.makeText(getApplicationContext(), "User could not login", Toast.LENGTH_SHORT).show();
-                VolleyLog.d("Error", "Error: " + error.getMessage());
+                VolleyLog.d("Error", "ErrorError: " + error.getMessage());
                 //Toast.makeText(Login_screen.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
