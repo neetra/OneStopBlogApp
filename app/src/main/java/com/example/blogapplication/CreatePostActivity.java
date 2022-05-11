@@ -103,6 +103,11 @@ public class CreatePostActivity extends AppCompatActivity {
             ImageView imageView = (ImageView) findViewById(R.id.imgView);
             imageView.setImageURI(selectedImg);
             addImg.setVisibility(View.GONE);
+<<<<<<< Updated upstream
+=======
+            filepath=selectedImg.getPath();
+            Log.i("fileinputstreafilepath", filepath);
+>>>>>>> Stashed changes
             file=new File(selectedImg.getPath());
 //            try {
 //                bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImg);
@@ -116,6 +121,7 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
 
+<<<<<<< Updated upstream
     private void uploadToS3() {
         String urlString = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId="+1;
         URL url= null;
@@ -138,6 +144,79 @@ public class CreatePostActivity extends AppCompatActivity {
             int i;
             while((i=bis.read())>0){
                 bos.write(i);
+=======
+    private int uploadToS3() {
+        Log.i("upload s3","upload s3"+filepath);
+        String urlString = "https://z2gennof6g.execute-api.us-east-2.amazonaws.com/dev/uploadImage?userId=" + 1;
+        String filename = filepath;
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 1 * 1024 * 1024;
+        String path = Environment.getExternalStorageDirectory().getPath();
+Log.i("environment path",path);
+
+
+       //File sourceFile = new File("/storage/emulated/0/Download/badge.png");
+
+        File sourceFile=new File(filepath);
+        Log.i("sourcefile",sourceFile.getPath()+":"+sourceFile.isFile()+":"+sourceFile.getPath());
+        if (!sourceFile.isFile()) {
+            Log.i("first if","first if");
+            dialog.dismiss();
+
+            return 0;
+        } else {
+            Log.i("else","else");
+            try {
+                FileInputStream fileInputStream = new FileInputStream(sourceFile);
+               Log.i("fileinputstream", String.valueOf(fileInputStream));
+                URL url = new URL(urlString);
+
+                // Open a HTTP  connection to  the URL
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true); // Allow Inputs
+                conn.setDoOutput(true); // Allow Outputs
+                conn.setUseCaches(false); // Don't use a Cached Copy
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Connection", "Keep-Alive");
+                conn.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
+                //conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                Log.i("fileinputstream77777", sourceFile.getPath());
+                conn.setRequestProperty("file", sourceFile.getPath() + ".png");
+                dos=new DataOutputStream(conn.getOutputStream());
+                dos.writeBytes(twoHyphens+boundary+lineEnd);
+                dos.writeBytes("Content-disposition: form-data; name=\"file\";filename=\""+"badge.png"+"\""+lineEnd);
+                dos.writeBytes(lineEnd);
+                bytesAvailable=fileInputStream.available();
+                bufferSize=Math.min(bytesAvailable,maxBufferSize);
+                buffer=new byte[bufferSize];
+                bytesRead=fileInputStream.read(buffer,0,bufferSize);
+                while (bytesRead>0){
+                    dos.write(buffer,0,bufferSize);
+                    bytesAvailable=fileInputStream.available();
+                    bufferSize=Math.min(bytesAvailable,maxBufferSize);
+                    bytesRead=fileInputStream.read(buffer,0,bufferSize);
+                }
+                Log.i("bytes Read","bytes Read");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens+boundary+twoHyphens+lineEnd);
+                serverResponseCode=conn.getResponseCode();
+                String serverMsg=conn.getResponseMessage();
+                Log.i("code",serverMsg+":"+serverResponseCode);
+                if(serverResponseCode==200){
+                    Log.i("Succesful uploading","success upload");
+                }
+                fileInputStream.close();
+                dos.flush();
+                dos.close();
+
+>>>>>>> Stashed changes
 
             }
             bis.close();
