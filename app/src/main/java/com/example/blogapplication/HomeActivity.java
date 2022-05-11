@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -12,26 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.blogapplication.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -58,7 +47,6 @@ public class HomeActivity extends AppCompatActivity {
             switch(item.getItemId()){
                 case R.id.navigation_home :
                     replaceFragment(new HomeFragment());
-
                     break;
                 case R.id.navigation_dashboard :
                     replaceFragment( new SavedFragment());
@@ -66,6 +54,8 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.navigation_notifications :
                     replaceFragment( new ProfileFragment());
                     break;
+                case R.id.navigation_myblogs:logs:
+                    replaceFragment( new MyBlogsFragment());
             }
             return true;
 

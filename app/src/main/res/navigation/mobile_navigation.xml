@@ -22,4 +22,10 @@
         android:name="com.example.blogapplication.ui.notifications.NotificationsFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_myblogs"
+        android:name="com.example.blogapplication.ui.notifications.NotificationsFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_my_blogs" />
 </navigation>

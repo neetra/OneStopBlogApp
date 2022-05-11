@@ -17,6 +17,7 @@
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_profile" />
     <item
+        android:id="@+id/navigation_myblogs"
         android:icon="@drawable/ic_baseline_sticky_note_2_24"
         android:title="My blogs" />
 
