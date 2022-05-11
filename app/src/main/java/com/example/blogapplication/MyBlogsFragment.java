@@ -83,7 +83,7 @@ public class MyBlogsFragment extends Fragment {
         view= inflater.inflate(R.layout.fragment_my_blogs, container, false);
         requestQueue= Volley.newRequestQueue(getContext());
         toolbar=(MaterialToolbar) view.findViewById(R.id.myblogstoolbar);
-        toolbar.setTitle("All Blogs");
+        toolbar.setTitle("My Blogs");
         add= (ImageButton) view.findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
                                    @Override
