@@ -54,8 +54,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         holder.text.setText(title);
         new RetrieveBitmapFromUrl(holder.image).execute(blog.blog_thumbnail);
         String blogHighlight = blog.getBlogDescription();
-        if(blogHighlight.length() > 22) {
-            blogHighlight = blogHighlight.substring(0, 22) + "...";
+        if(blogHighlight.length() > 27) {
+            blogHighlight = blogHighlight.substring(0, 27) + "...";
         }
         holder.description.setText(blogHighlight);
         if(blog.blog_is_saved){
