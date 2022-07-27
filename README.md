@@ -1,7 +1,7 @@
 # OneStopBlogApp
 
 - Medium Clone app .
-- App access REST API, offline storage blog. 
+- App access REST API ([link](https://github.com/neetra/OneStopBlogsAPI)), offline storage blog. 
 - Allows to create a blog
 
 
